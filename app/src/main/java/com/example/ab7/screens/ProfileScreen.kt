@@ -32,6 +32,14 @@ fun ProfileScreen(navController: NavController, sharedPreferences: SharedPrefere
         ) {
             Text(text = "Hello, $name!", modifier = Modifier.padding(8.dp))
             Text(text = "This is your password: $password", modifier = Modifier.padding(8.dp))
+
+            Button(onClick = {
+                sharedPreferences.edit().remove("username").apply()
+                sharedPreferences.edit().remove("password").apply()
+                navController.navigate("auth")
+            }) {
+                Text("Logout")
+            }
         }
     }
 }
