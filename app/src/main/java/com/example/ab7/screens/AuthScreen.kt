@@ -28,7 +28,6 @@ fun AuthScreen(navController: NavController, sharedPreferences: SharedPreference
     var nameToLogin by remember { mutableStateOf(TextFieldValue()) }
     var passwordToLogin by remember { mutableStateOf(TextFieldValue()) }
 
-
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
             modifier = Modifier
@@ -51,7 +50,6 @@ fun AuthScreen(navController: NavController, sharedPreferences: SharedPreference
                         .fillMaxWidth()
                 )
             }
-
 
             Text(text = "Enter your password", modifier = Modifier.padding(8.dp))
             Surface(
