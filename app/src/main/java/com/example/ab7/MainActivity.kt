@@ -22,6 +22,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.navigation.compose.rememberNavController
+import com.example.ab7.navigation.NavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +32,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Ab7Theme {
                 val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                MainScreen(sharedPreferences)
+                NavGraph(sharedPreferences)
             }
         }
     }
@@ -38,6 +40,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(sharedPreferences: SharedPreferences) {
+    val navController = rememberNavController()
+}
+
+@Composable
+fun ProfileScreen(sharedPreferences: SharedPreferences) {
     var name by remember { mutableStateOf(sharedPreferences.getString("username", "Default User") ?: "Default User") }
     var newName by remember { mutableStateOf(TextFieldValue()) }
 
@@ -51,34 +58,26 @@ fun MainScreen(sharedPreferences: SharedPreferences) {
         ) {
             Text(text = "Hello, $name!", modifier = Modifier.padding(8.dp))
 
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
-                color = Color.LightGray
-            ) {
-                BasicTextField(
-                    value = newName,
-                    onValueChange = { newName = it },
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                )
-            }
-
-            Button(onClick = {
-                sharedPreferences.edit().putString("username", newName.text).apply()
-                name = newName.text
-            }) {
-                Text("Save Name")
-            }
+//            Surface(
+//                modifier = Modifier.fillMaxWidth(),
+//                shape = RoundedCornerShape(8.dp),
+//                color = Color.LightGray
+//            ) {
+//                BasicTextField(
+//                    value = newName,
+//                    onValueChange = { newName = it },
+//                    modifier = Modifier
+//                        .padding(16.dp)
+//                        .fillMaxWidth()
+//                )
+//            }
+//
+//            Button(onClick = {
+//                sharedPreferences.edit().putString("username", newName.text).apply()
+//                name = newName.text
+//            }) {
+//                Text("Save Name")
+//            }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMainScreen() {
-    Ab7Theme {
-        MainScreen(sharedPreferences = null as SharedPreferences) // Only for preview
     }
 }
